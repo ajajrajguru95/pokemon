@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-// import Pokemon from "@/components/Pokemon";
 import Pokemon from "../components/Pokemon";
 import SearchBar from "../components/SearchBar";
 import SelectBox from "../components/SelectBox";
 import { fetchPokemon, fetchTypes } from "../lib/requests";
-
 
 /**
  * Home component that displays a list of Pokémon and allows users to search and filter by type.
@@ -14,7 +12,6 @@ import { fetchPokemon, fetchTypes } from "../lib/requests";
  */
 
 export default function Home() {
-
   const [pokemons, setPokemons] = useState([]);
   const [filteredData, setfilteredData] = useState([]);
   const [searchTerm, setsearchTerm] = useState("");
@@ -27,7 +24,10 @@ export default function Home() {
    * Fetches Pokémon data and types from the API.
    */
   const fetchData = useCallback(async () => {
-    const [pokemonData, typeData] = await Promise.all([fetchPokemon(15), fetchTypes()]);
+    const [pokemonData, typeData] = await Promise.all([
+      fetchPokemon(15),
+      fetchTypes(),
+    ]);
     setPokemons(pokemonData);
     setfilteredData(pokemonData);
     setTypes(typeData);
@@ -40,7 +40,6 @@ export default function Home() {
     fetchData();
   }, [fetchData]);
 
-
   /**
    * Debounces the search input to prevent excessive filtering.
    */
@@ -50,8 +49,7 @@ export default function Home() {
     }, 600);
 
     return () => clearTimeout(timer);
-  }, [searchTerm])
-
+  }, [searchTerm]);
 
   /**
    * Filters the Pokémon data based on the select term and debounced search term.
@@ -61,48 +59,52 @@ export default function Home() {
     // Filter by type
     if (selectTerm) {
       sethasSearched(true);
-      const filtered = pokemons.filter((pokemon) => (
+      const filtered = pokemons.filter((pokemon) =>
         pokemon.types.find((type) => type.type.name === selectTerm)
-      ))
+      );
       setfilteredData(filtered);
-    }
-    else {
+    } else {
       setfilteredData(pokemons);
     }
 
     // Further filter by debounced search term
     if (debouncedSearchTerm) {
       sethasSearched(true);
-      const filtered = pokemons.filter((pokemon) => (
+      const filtered = pokemons.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(debouncedSearchTerm.toLowerCase())
-      ))
+      );
       setfilteredData(filtered);
     }
-  }, [selectTerm, debouncedSearchTerm])
+  }, [selectTerm, debouncedSearchTerm]);
 
- /**
+  /**
    * Handles the search button click event.
    */
   const handleSearchClick = () => {
     sethasSearched(true);
-    const filtered = pokemons.filter((pokemon) => (
+    const filtered = pokemons.filter((pokemon) =>
       pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
-    ))
+    );
     setfilteredData(filtered);
-  }
-
+  };
 
   return (
     <main className="container mx-auto bg-gray-100 p-6 flex flex-col gap-5 min-h-svh fade-in">
-
       {/* Select Component */}
       {types && (
-        <SelectBox options={types} value={selectTerm} onChange={(event) => setselectTerm(event.target.value)} />
+        <SelectBox
+          options={types}
+          value={selectTerm}
+          onChange={(event) => setselectTerm(event.target.value)}
+        />
       )}
 
       {/* Search bar component */}
-      <SearchBar value={searchTerm} onChange={(event) => setsearchTerm(event.target.value)} onSearch={handleSearchClick} />
-
+      <SearchBar
+        value={searchTerm}
+        onChange={(event) => setsearchTerm(event.target.value)}
+        onSearch={handleSearchClick}
+      />
 
       {/* Pokemon card listing */}
       {filteredData.length > 0 || !hasSearched ? (
@@ -113,11 +115,14 @@ export default function Home() {
         </div>
       ) : (
         <div className="text-center mt-16 py-4 text-gray-600">
-          No Pokémon found for <strong>{searchTerm && `Search: ${searchTerm}`} {selectTerm && `Term: ${selectTerm}`}</strong>. Try a different search query.
+          No Pokémon found for{" "}
+          <strong>
+            {searchTerm && `Search: ${searchTerm}`}{" "}
+            {selectTerm && `Term: ${selectTerm}`}
+          </strong>
+          . Try a different search query.
         </div>
-      )
-      }
-
+      )}
     </main>
   );
 }
