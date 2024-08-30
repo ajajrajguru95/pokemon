@@ -11,12 +11,12 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 
  * Example:
  * ```
- * <DetailPage params={{ id: 1 }} />
+  <DetailPage params={{ slug: bulbasaur }} />
  * ```
  */
 
 const DetailPage = async ({ params }) => {
-  const pokemonDetails = await fetchPokemonDetails(params.id);
+  const pokemonDetails = await fetchPokemonDetails(params.slug);
   
   const { name,
      sprites: { other : {
