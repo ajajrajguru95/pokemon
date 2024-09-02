@@ -40,6 +40,7 @@ export default function Home() {
     fetchData();
   }, [fetchData]);
 
+  console.log(types);
 
   /**
    * Debounces the search input to prevent excessive filtering.
@@ -62,7 +63,7 @@ export default function Home() {
     if (selectTerm) {
       sethasSearched(true);
       const filtered = pokemons.filter((pokemon) => (
-        pokemon.types.find((type) => type.type.name === selectTerm)
+        pokemon.types.find((type) => type === selectTerm)
       ))
       setfilteredData(filtered);
     }

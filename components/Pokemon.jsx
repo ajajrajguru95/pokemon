@@ -2,15 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const Pokemon = ({ pokemon }) => {
-  const { id, name, sprites } = pokemon;
-  const imageSrc = sprites?.other?.dream_world?.front_default ?? null;
+  const { name, sprites:imageSrc } = pokemon;
+  // const imageSrc = sprites?.other?.dream_world?.front_default ?? null;
   
   return (
     <div className="pokemon-card bg-white rounded-xl overflow-y-hidden">
-      <Link href={`/pokemon/${id}`} className='flex flex-col h-full'>
+      <Link href={`/pokemon/${name}`} className='flex flex-col h-full'>
         <div className='pokemon-card__cover text-center p-4 flex items-center justify-center flex-1'>
           <Image
-            src={imageSrc}
+            src={imageSrc ?? null}
             width={150}
             height={150}
             className='inline-block'

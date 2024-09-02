@@ -11,19 +11,15 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
 
  * Example:
  * ```
- * <DetailPage params={{ id: 1 }} />
+ * <DetailPage params={{ slug bulbasaur }} />
  * ```
  */
 
 const DetailPage = async ({ params }) => {
-  const pokemonDetails = await fetchPokemonDetails(params.id);
+  const pokemonDetails = await fetchPokemonDetails(params.slug);
   
   const { name,
-     sprites: { other : {
-      dream_world : {
-        front_default: imageSrc
-      }
-     } },
+     sprites: imageSrc,
      types,
      stats,
      abilities,
@@ -31,10 +27,10 @@ const DetailPage = async ({ params }) => {
 
   const pokemonInfo = {
     Name: name,
-    Type: types.map((type) => type.type.name).join(', '),
-    Stats: stats.map((stat) => stat.stat.name).join(', '),
-    Abilities: abilities.map((ability) => ability.ability.name).join(', '),
-    'Some Moves': moves.slice(0, 10).map((move) => move.move.name).join(', ') + (moves.length > 10 ? "..." : ""),
+    Type: types.map((type) => type).join(', '),
+    Stats: stats.map((stat) => stat).join(', '),
+    Abilities: abilities.map((ability) => ability).join(', '),
+    'Some Moves': moves.map((move) => move).join(', '),
   };
 
 
