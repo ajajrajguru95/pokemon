@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 const Pokemon = ({ pokemon }) => {
   const { name, sprites:imageSrc } = pokemon;
-  // const imageSrc = sprites?.other?.dream_world?.front_default ?? null;
   
   return (
     <div className="pokemon-card bg-white rounded-xl overflow-y-hidden">
