@@ -5,6 +5,7 @@ import Pokemon from "../components/Pokemon";
 import SearchBar from "../components/SearchBar";
 import SelectBox from "../components/SelectBox";
 import { fetchPokemon, fetchTypes } from "../lib/requests";
+import { PokemonProps } from "../typings/Pokemon";
 
 /**
  * Home component that displays a list of Pokémon and allows users to search and filter by type.
@@ -12,10 +13,10 @@ import { fetchPokemon, fetchTypes } from "../lib/requests";
  */
 
 export default function Home() {
-  const [pokemons, setPokemons] = useState([]);
+  const [pokemons, setPokemons] = useState<PokemonProps[]>([]);
   const [filteredData, setfilteredData] = useState([]);
   const [searchTerm, setsearchTerm] = useState("");
-  const [types, setTypes] = useState([]);
+  const [types, setTypes] = useState<string[]>([]);
   const [selectTerm, setselectTerm] = useState("");
   const [hasSearched, sethasSearched] = useState(false);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
@@ -90,6 +91,7 @@ export default function Home() {
 
   return (
     <main className="container mx-auto bg-gray-100 p-6 flex flex-col gap-5 min-h-svh fade-in">
+
       {/* Select Component */}
       {types && (
         <SelectBox

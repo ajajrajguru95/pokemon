@@ -1,5 +1,12 @@
+import { PokemonProps } from "../typings/Pokemon"
 
-const SearchBar = ({value, onChange, onSearch}) => {
+interface SearchProps<T>{
+    value: string,
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    onSearch: () => Promise<T | null> | void
+}
+
+const SearchBar = ({value, onChange, onSearch}:SearchProps<PokemonProps>) => {
     
     return (
         <div className="search-bar md:max-w-[400px] w-full flex rounded-lg overflow-hidden">

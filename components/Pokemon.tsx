@@ -1,7 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { PokemonProps } from '../typings/Pokemon';
 
-const Pokemon = ({ pokemon }) => {
+interface PokemonDataProp {
+  pokemon: PokemonProps | null
+}
+
+const Pokemon = ({ pokemon }: PokemonDataProp) => {
   const { name, sprites:imageSrc } = pokemon;
   
   return (

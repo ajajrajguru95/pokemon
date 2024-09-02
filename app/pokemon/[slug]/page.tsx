@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image';
 import {fetchPokemonDetails} from "../../../lib/requests";
 import Breadcrumbs from "../../../components/Breadcrumbs";
+import {PokemonDetailProps} from "../../../typings/Pokemon";
 
 
 /**
@@ -15,7 +16,7 @@ import Breadcrumbs from "../../../components/Breadcrumbs";
  * ```
  */
 
-const DetailPage = async ({ params }) => {
+const DetailPage = async ({ params }: {params: { slug: string }}) => {
   const pokemonDetails = await fetchPokemonDetails(params.slug);
   
   const { name,

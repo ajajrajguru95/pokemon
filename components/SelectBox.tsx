@@ -1,6 +1,13 @@
-import React from 'react'
 
-const SelectBox = ({ options, value, onChange }) => {
+interface SelectProps {
+    options: string[],
+    value: string,
+    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void,
+}
+
+
+
+const SelectBox = ({ options, value, onChange }: SelectProps) => {
     return (
         <>
             <select className="md:max-w-[300px] bg-white p-2 rounded-2xl w-full" value={value} onChange={onChange}>
