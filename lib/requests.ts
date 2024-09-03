@@ -1,5 +1,30 @@
 import { PokemonProps, PokemonDetailProps } from "../typings/Pokemon";
 
+interface Stat {
+  stat: {
+    name: string;
+  };
+}
+
+interface Type {
+  type: {
+    name: string;
+  },
+  name: string,
+}
+interface Move {
+  move: {
+    name: string;
+  };
+}
+
+interface Ability {
+  ability: {
+    name: string;
+  };
+}
+
+
 /**
  * Fetches JSON data from a URL
  * @param {string} url
@@ -30,7 +55,7 @@ export const fetchPokemon = async (limit:number = 12) => {
         name: pokemon.name,
         // url: pokemon.url,
         sprites: result.sprites?.other?.dream_world?.front_default,
-        types: result.types.map(type => type.type.name),
+        types: result.types.map((type: Type) => type.type.name),
       }
     });
     const detailedPokemons:PokemonProps[] = await Promise.all(pokemonDetailsPromises);
@@ -46,7 +71,7 @@ type PokemonTypes = string[];
   export const fetchTypes = async (): Promise<PokemonTypes> => {
     const url = 'https://pokeapi.co/api/v2/type/';
     const data =  await fetchJson(url);
-    return data.results.map(type => type.name);
+    return data.results.map((type:Type) => type.name);
   }
   
 
@@ -61,9 +86,9 @@ type PokemonTypes = string[];
     return {
       name: response.name,
       sprites: response.sprites?.other?.dream_world?.front_default,
-      stats: response.stats.map(stat => stat.stat.name),
-      types: response.types.map(type => type.type.name),
-      moves: response.moves.slice(0, 10).map(move => move.move.name),
-      abilities: response.abilities.map(ability => ability.ability.name),
+      stats: response.stats.map((stat:Stat) => stat.stat.name),
+      types: response.types.map((type:Type) => type.type.name),
+      moves: response.moves.slice(0, 10).map((move:Move) => move.move.name),
+      abilities: response.abilities.map((ability:Ability) => ability.ability.name),
     }
   }

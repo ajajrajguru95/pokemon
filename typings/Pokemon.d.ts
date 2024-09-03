@@ -5,11 +5,8 @@ export interface PokemonProps {
     types:   string[];
 }
 
-export interface PokemonDetailProps{
-    name: string,
-    sprites: string,
-    types: string[],
-    stats: string[],
-    abilities: string[],
-    moves: string[],
-}
+export interface PokemonDetailProps extends PokemonProps {
+    stats: string[];
+    abilities: string[];
+    moves: string[];
+  }
